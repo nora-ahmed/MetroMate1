@@ -222,9 +222,7 @@ vector<Station*> Metro::getStationsForLine(int line) {
 				lineStations.push_back(station);
 			}
 			break;
-		default:
-			cout << "Invalid line number." << endl;
-			//return lineStations; // Return empty vector 
+		
 		}
 	}
 
