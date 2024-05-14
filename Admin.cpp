@@ -354,6 +354,30 @@ void Admin::editTrain() {
         cout << "Train with ID " << trainID << " not found." << endl;
     }
 }
+void Admin::writeTrians(ofstream* f)
+{
+   
+    for (int i = 0; i < trainss.size(); i++) {
+        trainss[i]->write(f);
+    }
+}
+void Admin::readTrains(ifstream* f)
+{
+    int trainID;
+    int capacity;
+    int breakdownDelay = 10;
+    int line;
+    string lines;
+    while (getline(*f, lines)) {
+        stringstream ss(lines);
+        string id, cap, Line;
+        getline(ss,id, ',');
+        getline(ss, cap, ',');
+        getline(ss, Line, ',');
+        Train* t = new Train(stoi(id),stoi(cap),stoi(Line));
+        trainss.push_back(t);
+    }
+}
 void Admin::handleBreakDowns() {
     int trainID;
     cout << "Enter the ID of the train that has broken down: ";

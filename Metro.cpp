@@ -6,7 +6,7 @@ void Metro::insertAt(string NewStaion, string atStaion)
 {
 
 	mapGraph[atStaion].second.push_back(&(mapGraph[NewStaion].first));
-
+	mapGraph[NewStaion].second.push_back(&(mapGraph[atStaion].first));
 
 }
 
@@ -43,6 +43,7 @@ void Metro::addStation(string name, bool Line1,bool Line2,bool Line3)
 {
 	Station newStation(name, Line1,Line2,Line3);
 	mapGraph[name].first= newStation;
+
 	visited[name] = false;
 	flag = false;
 }
@@ -252,10 +253,14 @@ vector<Station*> Metro::getStationsForLine(int line) {
 void Metro::writeFile(ofstream* f)
 {
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {
-	
 		(*f) << it->second.first.toString();
 		(*f) << "\n";
-		it->second.first.write(f, it->first);
+		
+			
+			
+			it->second.first.write(f);
+	
+		
 	}
 	(*f) << ';'<<"\n";
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {

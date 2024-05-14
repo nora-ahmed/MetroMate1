@@ -9,6 +9,11 @@ RewardProgram :: RewardProgram()
 		points=0;
 }
 
+RewardProgram::RewardProgram(int point)
+{
+	points = point;
+}
+
 bool RewardProgram:: check_reward()
 	{
 		if (points >= 5)
@@ -22,14 +27,13 @@ bool RewardProgram:: check_reward()
 void RewardProgram:: increment_points() {
 	points++;
 }
+int RewardProgram::getPoints()
+{
+	return points;
+}
 void RewardProgram:: redeem_reward()
 	{
 		points = 0;
 		cout << "You completed 5 rides!" << endl;
 		cout << "Your next ride is free!" << endl;
 	}
-void RewardProgram:: increment_points()
-{
-	points++;
-
-}

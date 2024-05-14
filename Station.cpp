@@ -3,6 +3,9 @@
 #include<iostream>
 #include<fstream>
 #include<sstream>
+
+ int Station:: numberOfTickets;
+ double Station::totalIncome;
 void Station::read(ifstream* f,string stationName)
 {
     string line;
@@ -16,19 +19,20 @@ void Station::read(ifstream* f,string stationName)
       
     }
 }
-void Station::write(ofstream* f, string stationName)
+void Station::write(ofstream* f)
 {
+    (*f) << "-";
     for (auto it = dailyIncome.begin(); it != dailyIncome.end(); it++) {
-        if (it->first == stationName) {
-            (*f) << stationName << "," << to_string(it->second.first) << "," << to_string(it->second.second);
+      
+            (*f) << it->first << "," << to_string(it->second.first) << "," << to_string(it->second.second);
             (*f) << "\n";
-        }
+        
     }
+    (*f) << "-";
    
 }
 
-static int numberOfTickets = 0;
-static double totalIncome = 0.0;
+
 
 Station::Station(string name, bool  Line1, bool Line2,bool Line3)
 {

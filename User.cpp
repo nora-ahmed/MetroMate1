@@ -9,12 +9,12 @@ using namespace std;
 
 stack<string>questionStack;
 
-user::user(string new_user_name, string new_user_email, string new_user_password, int trips, double money, string type, string start, string end, int stages) {
+user::user(string new_user_name, string new_user_email, string new_user_password, int points,int trips, double money, string type, string start, string end, int stages) {
     username = new_user_name;
     email = new_user_email;
     password = new_user_password;
     subscription =   Subscription(trips,money,type,start,end,stages);
-
+    myReward
 }
 void user:: writeUsers(user* write,ofstream* f)
 {
@@ -55,21 +55,22 @@ string user::suggestRide()
 }
 
 
- void user::display_ride_history() {
-     cout << "Stored Rides:" << endl;
+void user::display_ride_history() {
+    cout << "Stored Rides:" << endl;
 
-     if (user_rides.empty()) {
-         cout << "No ride history to show." << endl;
-     }
-     else {
-         list<Ride>::reverse_iterator it;
-         it = user_rides.rbegin();
-         while (it != user_rides.rend()) {
-             it->display();
-     }
- }
- 
- user::user()
+    if (user_rides.empty()) {
+        cout << "No ride history to show." << endl;
+    }
+    else {
+        list<Ride>::reverse_iterator it;
+        it = user_rides.rbegin();
+        while (it != user_rides.rend()) {
+            it->display();
+            it++;
+        }
+    }
+}
+     user::user()
 {
     username = "";
     email = "";
@@ -174,7 +175,7 @@ string user::get_email() {
 
 string user::toString()
 {
-    return username + "," + email + "," + password;
+    return username + "," + email + "," + password+","+to_string(myReward.getPoints());
 }
 
 string user::get_username() {

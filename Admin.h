@@ -32,6 +32,8 @@ public:
 	void TrainManagement(Metro* metro1);
 	void addTrainToLine();
 	void editTrain();
+    void writeTrians(ofstream* f);
+    void readTrains(ifstream* f);
 	void handleBreakDowns();
 	void ETA();
 };
