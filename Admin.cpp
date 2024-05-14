@@ -301,7 +301,7 @@ void Admin::addTrainToLine() {
     cin >> capacity;
 
     // Create a new train object with the provided info
-    Train* newTrain = new Train(trainID, capacity, stations);
+    Train* newTrain = new Train(trainID, capacity, stations,line);
     trainss.push_back(newTrain);
     cout << "Train with ID " << trainID << " added to Line " << line << "." << endl;
 }
