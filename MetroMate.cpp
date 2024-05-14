@@ -10,13 +10,16 @@
 #include "Admin.h"
 #include"user.h"
 #include<regex>
-
+ double stage1_fare = 6.0;
+ double stage2_fare = 8.0;
+ double stage3_fare = 12.0;
+ double stage4_fare = 15.0;
 
 using namespace std;
 Metro metro;
 list<user*> users;
 user* currentUser;
-//Admin admin;
+Admin admin;
 
 Ride ride;
 
@@ -171,7 +174,7 @@ void readUsers(ifstream* f) {
 		getline(ss, Name, ',');
 		getline(ss, mail, ',');
 		getline(ss, passWord, ',');
-		cout << Name << endl;
+	
 		getline(*f, line);
 		stringstream sd(line);
 
@@ -183,13 +186,13 @@ void readUsers(ifstream* f) {
 		getline(sd, start, ',');
 		getline(sd, end, ',');
 
-		cout << start<< endl;
+	
 
 		user* newUser=new user(Name, mail, passWord, stoi(trips), stod(money), type, start, end, stoi(stages));
 		string lines;
 		while (true) {
 			getline(*f, lines);
-			if (lines == ";") {
+			if (lines == "&") {
 				break;
 			}
 			
@@ -199,13 +202,26 @@ void readUsers(ifstream* f) {
 			getline(sm, start_station, ',');
 			getline(sm, end_station, ',');
 			getline(sm, date, ',');
-			cout << start_station << endl;
-			cout << end_station << endl;
-			cout << date << endl;
+		
 			Ride ride(start_station, end_station, date);
 			newUser->user_rides.push_back(ride);
 		
 		}
+		string line1;
+		while (true) {
+			getline(*f, line1);
+			if (line1 == ";") {
+				break;
+			}
+
+			stringstream sm(line1);
+
+			string question;
+			getline(sm, question);
+			newUser->questionStack.push(question);
+
+		}
+		
 		
 		users.push_back(newUser);
 	}
@@ -237,6 +253,14 @@ void writeAllFiles() {
 	}
 	Subscription::writeNew(&f1);
 	f1.close();
+	ofstream f2;
+	f2.open("Feedback.txt");
+	if (!f2) {
+		cerr << "Error opening file for reading." << endl;
+		return;
+	}
+	admin.write(&f2);
+	f2.close();
 }
 void readAllFiles() {
 	readStations();
@@ -256,6 +280,14 @@ readUsers(&f);
 	}
 	Subscription::readWrite(&f1);
 	f1.close();
+	ifstream f2;
+	f2.open("Feedback.txt");
+	if (!f2) {
+		cerr << "Error opening file for reading." << endl;
+		return;
+	}
+	admin.read(&f2);
+	f2.close();
 }
 void addGraph() {
 	//readStations();
@@ -511,10 +543,7 @@ void bookRide() {
 				}
 				
 				else {
-					const double stage1_fare = 6.0;
-					const double stage2_fare = 8.0;
-					const double stage3_fare = 12.0;
-					const double stage4_fare = 15.0;
+		
 					RewardProgram myreward;
 					if (myreward.check_reward())
 						cout << "Fare: 0 LE" << endl;
@@ -667,10 +696,7 @@ void bookRide() {
 		}
 		
 		else {
-			const double stage1_fare = 6.0;
-			const double stage2_fare = 8.0;
-			const double stage3_fare = 12.0;
-			const double stage4_fare = 15.0;
+			
 			RewardProgram myreward;
 			if (myreward.check_reward())
 				cout << "Fare: 0 LE" << endl;
@@ -805,7 +831,7 @@ void mainMenu() {
 		}
 		else if (menuChoice == 5)
 		{
-			//urrentUser->customerService(admin.SupportRespones);
+			currentUser->customerService(&admin.SupportRespones);
 
 		}
 		else if (menuChoice == 6)
@@ -913,7 +939,7 @@ int main(){
 	//"Nageeb", "Maspero" 
 	//"Massara", "Nasser"
 	//"Ghamra", "Nasser"
-	
+	//readStations();
 
 	readAllFiles();
 	//readStations();

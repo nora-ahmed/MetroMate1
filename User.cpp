@@ -25,6 +25,13 @@ void user:: writeUsers(user* write,ofstream* f)
         for (auto its = write->user_rides.begin(); its != write->user_rides.end(); its++) {
             (*f) << its->toString() << "\n"; //writing the rides data
         }
+
+        (*f) <<'&' << "\n";
+        while (!questionStack.empty()) {
+            (*f) << questionStack.top()<<"\n";
+            questionStack.pop();
+        }
+       
         (*f) << ';' << "\n";
     
 
@@ -266,17 +273,17 @@ void user::sendQuestion(string question) {
     questionStack.push(question);
     cout << "Question sent: " << question << endl;
 }
-void user::getReply(queue<pair<string, string>> replies) {
-    if (questionStack.empty() || replies.empty()) {
+void user::getReply(queue<pair<string, string>>* replies) {
+    if (questionStack.empty() || replies->empty()) {
         cout << "No replies available" << endl;
         return;
     }
   /*  pair<string, string> reply = replies.front();
     replies.pop();*/
-    cout << "Question: " << replies.front().first << endl;
-    cout << "Reply: " << replies.front().second << endl;
+    cout << "Question: " << replies->front().first << endl;
+    cout << "Reply: " << replies->front().second << endl;
 }
-void user::customerService(queue<pair<string, string>> replies) {
+void user::customerService(queue<pair<string, string>>* replies) {
     int choice;
     do {
         cout << "Customer service" << endl;

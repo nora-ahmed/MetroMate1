@@ -22,6 +22,7 @@ public:
     list<Ride>user_rides;
     map<string,int>frequent_rides;
     stack<string>questionStack;
+  //  queue<pair<string, string>> supportResponses;
     RewardProgram myReward;
     Subscription subscription;
     void display_ride_history();
@@ -35,8 +36,8 @@ public:
     void sendQuestion(string question);
     void changeUsername();
     stack<string> getQuestionStack();
-    void getReply(queue<pair<string, string>> replies);
-    void customerService(queue<pair<string, string>> replies);
+    void getReply(queue<pair<string, string>>* replies);
+    void customerService(queue<pair<string, string>>* replies);
    void changePassword();
     void changeEmail();
     //void deleteAccount(string username);
