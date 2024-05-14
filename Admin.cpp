@@ -278,7 +278,10 @@ void Admin::addTrainToLine() {
     cout << "Choose a line for the new train (1, 2, or 3): ";
     cin >> line;
 
-    
+    if (line != 1 && line != 2 && line != 3) {
+        cout << "Invalid line number" << endl;
+        return;
+    }
     vector<Station*> stations = metro->getStationsForLine(line);
     
     if (stations.empty()) {
