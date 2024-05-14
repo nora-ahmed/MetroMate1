@@ -29,10 +29,9 @@ public:
     void GetQuestion(stack<string>Questions); // Questions stack recieved from the user 
     queue<pair<string, string>> SendReplies();
     stack<string>UserQuestions;
-    
-    void TrainManagement(Metro* metro1);
-    void addTrainToLine();
-    void editTrain();
-    void handleBreakDowns();
-    void ETA();
+	void TrainManagement(Metro* metro1);
+	void addTrainToLine();
+	void editTrain();
+	void handleBreakDowns();
+	void ETA();
 };

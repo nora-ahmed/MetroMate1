@@ -1,6 +1,10 @@
 ﻿#include "Station.h"
 #include <string>
 #include<iostream>
+
+static int numberOfTickets = 0;
+static double totalIncome = 0.0;
+
 Station::Station(string name, bool  Line1, bool Line2,bool Line3)
 {
 	

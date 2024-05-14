@@ -6,7 +6,7 @@ using namespace std;
 
 RewardProgram :: RewardProgram()
 {
-		points++;
+	points = 0;
 }
 
 bool RewardProgram:: check_reward()
@@ -26,3 +26,8 @@ void RewardProgram:: redeem_reward()
 		cout << "You completed 5 rides!" << endl;
 		cout << "Your next ride is free!" << endl;
 	}
+void RewardProgram:: increment_points()
+{
+	points++;
+
+}

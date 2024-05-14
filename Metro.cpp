@@ -199,11 +199,11 @@ vector<Station*> Metro::getStationsForLine(int line) {
 	vector<Station*> lineStations;
 
 	// Iterate through all stations in the mapGraph
-	
+
 
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {
 		Station* station = &it->second.first;
-	
+
 		// Check if the station belongs to the specified line
 		switch (line) {
 		case 1:
@@ -223,7 +223,7 @@ vector<Station*> Metro::getStationsForLine(int line) {
 			break;
 		default:
 			cout << "Invalid line number." << endl;
-			
+			//return lineStations; // Return empty vector 
 		}
 	}
 
