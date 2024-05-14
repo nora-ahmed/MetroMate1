@@ -257,33 +257,19 @@ queue<pair<string, string>> Admin::SendReplies() {
 }
 
 
-void Admin::handleBreakdown(int trainID, bool isBroken) {
-    // Find the train with the given ID
-    auto it = find_if(trains.begin(), trains.end(), [trainID](Train* train) {
-        return train->trainID == trainID;
-        });
-
-    // If the train is found, set its breakdown status
-    if (it != trains.end()) {
-        (*it)->setBreakdown(isBroken);
-    }
-    else {
-        cout << "Train with ID " << trainID << " not found." << endl;
-    }
-}
 void Admin::addTrainToLine() {
     int trainID;
     cout << "Enter train ID: ";
     cin >> trainID;
 
     // Check if the train with the given ID already exists
-    auto it = find_if(trains.begin(), trains.end(), [trainID](Train* train) {
+    auto it = find_if(trainss.begin(), trainss.end(), [trainID](Train* train) {
         return train->trainID == trainID;
         });
 
 
 
-    if (it != trains.end()) {
+    if (it != trainss.end()) {
         cout << "Train with ID " << trainID << " already exists." << endl;
         return;
     }
@@ -292,8 +278,9 @@ void Admin::addTrainToLine() {
     cout << "Choose a line for the new train (1, 2, or 3): ";
     cin >> line;
 
-    // Assuming you have a function to retrieve stations for a specific line from the Metro class
+    
     vector<Station*> stations = metro->getStationsForLine(line);
+    
     if (stations.empty()) {
         cout << "No stations found for line " << line << endl;
         return;
@@ -312,18 +299,133 @@ void Admin::addTrainToLine() {
 
     // Create a new train object with the provided info
     Train* newTrain = new Train(trainID, capacity, stations);
-    trains.push_back(newTrain);
+    trainss.push_back(newTrain);
     cout << "Train with ID " << trainID << " added to Line " << line << "." << endl;
 }
 
-void Admin::TrainManagement() {
+
+
+
+
+void Admin::editTrain() {
+    int trainID;
+    cout << "Enter the ID of the train you want to edit: ";
+    cin >> trainID;
+
+    // Find the train object with the matching ID
+    Train* trainToEdit = nullptr;
+    for (Train* train : trainss) { // Iterate through all trains in the system
+        if (train->trainID == trainID) {
+            trainToEdit = train;
+            break;
+        }
+    }
+
+    if (trainToEdit != nullptr) {
+        int editChoice;
+        cout << "What do you want to edit?" << endl;
+        cout << "1. Edit Capacity" << endl;
+        cout << "2. Back" << endl;
+        cout << "Enter your choice: ";
+        cin >> editChoice;
+
+        switch (editChoice) {
+        case 1: {
+            int newCapacity;
+            cout << "Enter the new capacity for the train: ";
+            cin >> newCapacity;
+            if (newCapacity > 0) {
+                trainToEdit->capacity = newCapacity;
+                cout << "Train capacity updated successfully." << endl;
+            }
+            else {
+                cout << "Invalid capacity. Please enter a positive value." << endl;
+            }
+            break;
+        }
+
+        case 2:
+            break;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+    else {
+        cout << "Train with ID " << trainID << " not found." << endl;
+    }
+}
+void Admin::handleBreakDowns() {
+    int trainID;
+    cout << "Enter the ID of the train that has broken down: ";
+    cin >> trainID;
+
+    // Find the train object with the matching ID
+    Train* brokenTrain = nullptr;
+    for (Train* train : trainss) { // Iterate through all trains in the system
+        if (train->trainID == trainID) {
+            brokenTrain = train;
+            break;
+        }
+    }
+
+    if (brokenTrain != nullptr) {
+        brokenTrain->setBreakdown(true);
+        cout << "Train " << trainID << " marked as broken down." << endl;
+    }
+    else {
+        cout << "Train with ID " << trainID << " not found." << endl;
+    }
+}
+void Admin::ETA() {
+    int line;
+    cout << "Enter the line number (1, 2, or 3) to monitor ETA: ";
+    cin >> line;
+
+    // Get the stations for the chosen line from the metro
+    vector<Station*> stations = metro->getStationsForLine(line);
+
+    // Display the trains associated with the chosen line and calculate the estimated time to complete the line
+    cout << "Trains associated with Line " << line << ":" << endl;
+    bool hasTrains = false; // Flag to track if there are trains associated with the line
+    for (Train* train : trainss) {
+        // Check if the train's route matches the chosen line
+        if (train->route == stations) {
+            cout << "Train ID: " << train->trainID << ", Capacity: " << train->capacity << endl;
+            hasTrains = true;
+        }
+    }
+
+    // If there are trains associated with the line, calculate and display the estimated time to complete the line
+    if (hasTrains) {
+        int numStations = stations.size();
+        int estimatedTime = numStations * 2; // Each station takes 2 minutes
+
+        // Check if any train on the line is broken down
+        for (Train* train : trainss) {
+            if (train->route == stations && train->isBreakdown) {
+                estimatedTime += train->breakdownDelay; // Add 10 minutes extra if there is a breakdown
+                break;
+            }
+        }
+
+        cout << "Estimated time to complete Line " << line << ": " << estimatedTime << " minutes." << endl;
+    }
+    else {
+        cout << "No trains found for Line " << line << "." << endl;
+    }
+
+}
+
+void Admin::TrainManagement(Metro* metro1) {
+    metro = metro1;
     int choice;
     do {
         cout << "-------------------- Train Management Menu --------------------" << endl;
         cout << "1. Add Train " << endl;
         cout << "2. Edit Train" << endl;
         cout << "3. Handle Break down " << endl;
-        cout << "4. Back to Admin Menu" << endl;
+        cout << "4. Monitor ETA for lines  " << endl;
+        cout << "5. Back to Admin Menu" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
@@ -331,56 +433,20 @@ void Admin::TrainManagement() {
         case 1:
             addTrainToLine();
             break;
-        case 2: {
-            int id;
-            cout << "Enter the ID of the train you want to edit: ";
-            cin >> id;
 
-            // Find the train with the specified ID
-            auto it = find_if(trains.begin(), trains.end(), [id](Train* train) {
-                return train->trainID == id;
-                });
-
-            if (it != trains.end()) {
-                // Train found, provide options to edit train attributes
-                Train* trainToEdit = *it;
-                int editChoice;
-                cout << "What would you like to edit?" << endl;
-                cout << "1. Capacity" << endl;
-                cout << "Enter your choice: ";
-                cin >> editChoice;
-
-                switch (editChoice) {
-                case 1: {
-                    int newCapacity;
-                    cout << "Enter the new capacity: ";
-                    cin >> newCapacity;
-                    trainToEdit->capacity = newCapacity;
-                    cout << "Capacity updated successfully." << endl;
-                    break;
-                }
-
-                default:
-                    cout << "Invalid choice. Please try again." << endl;
-                }
-            }
-            else {
-                cout << "Train with ID " << id << " not found." << endl;
-            }
+        case 2: 
+            editTrain();
             break;
-        }
 
-        case 3: {
-            int id;
-            bool isBroken;
-            cout << "Enter the ID of the train you want to set a breakdown: ";
-            cin >> id;
-            cout << "Enter 1 if the train is broken down, 0 otherwise: ";
-            cin >> isBroken;
-            handleBreakdown(id, isBroken);
+        case 3: 
+            handleBreakDowns();
             break;
-        }
+
         case 4:
+            ETA();
+            break;
+
+        case 5:
             return;
         default:
             cout << "Invalid choice. Please try again." << endl;
@@ -389,6 +455,5 @@ void Admin::TrainManagement() {
 
 
 }
-
 
 

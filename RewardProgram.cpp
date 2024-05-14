@@ -28,3 +28,8 @@ void RewardProgram:: redeem_reward()
 		cout << "You completed 5 rides!" << endl;
 		cout << "Your next ride is free!" << endl;
 	}
+void RewardProgram:: increment_points()
+{
+	points++;
+
+}

@@ -14,6 +14,8 @@ public:
 	bool line1;
 	bool line2;
 	bool line3;
+	static int numberOfTickets;
+	static double totalIncome;
 	map<std::string, std::pair<int, double>> dailyIncome; // Date -> number of tickets, income
 	void read(ifstream* f, string stationName);
 	void write(ofstream* f, string stationName);

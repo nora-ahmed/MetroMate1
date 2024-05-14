@@ -14,7 +14,7 @@ class Metro
 public:
 	
 	map<string,pair<Station,vector <Station*>>> mapGraph;
-	vector<Station*> lineStations;
+
 	void addStation(string name, bool Line1, bool Line2, bool Line3);
 	void addStation(string name, int lineNumber);
 	void editStation(string name, string newName);

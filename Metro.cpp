@@ -196,6 +196,8 @@ void Metro::printAllPathsUtil(string u, string d,
 	visited[u] = false;
 }
 vector<Station*> Metro::getStationsForLine(int line) {
+	vector<Station*> lineStations;
+
 	// Iterate through all stations in the mapGraph
 
 
