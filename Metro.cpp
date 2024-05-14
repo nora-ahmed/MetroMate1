@@ -253,6 +253,7 @@ void Metro::writeFile(ofstream* f)
 	
 		(*f) << it->second.first.toString();
 		(*f) << "\n";
+		it->second.first.write(f, it->first);
 	}
 	(*f) << ';'<<"\n";
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {

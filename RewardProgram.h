@@ -5,4 +5,5 @@ public:
 	RewardProgram();
 	bool check_reward();
 	void redeem_reward();
+	void increment_points();
 };

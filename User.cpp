@@ -62,10 +62,10 @@ string user::suggestRide()
          cout << "No ride history to show." << endl;
      }
      else {
-         for (Ride ride : user_rides) {
-            ride.display();
-             cout << endl;
-         }
+         list<Ride>::reverse_iterator it;
+         it = user_rides.rbegin();
+         while (it != user_rides.rend()) {
+             it->display();
      }
  }
  

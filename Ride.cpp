@@ -44,67 +44,12 @@ void Ride::display()
     cout << "End Station: " << end_station << endl;
     
     cout << "Date: " << timePointToString(currentDate) <<endl;
-    cout << "Start Time: " << start_time << endl;
-    cout << "End Time: " << end_time << endl;
+  
 }
 string Ride::toString()
 {
     return start_station + "," + end_station + "," + timePointToString(currentDate);
 }
-
-void Ride::calc_fare( int num_stations_traveled)
-{
-
-    /* vector<string>allPaths = {
-          {"A", "B", "C", "D","E", "F", "G", "H",
-            "I", "J", "K", "L","M","N","O","P"
-              ,"Q", "R", "S", "T","U","V","W","X"}
-     };*/
-
-    const double stage1_fare = 6.0;
-    const double stage2_fare = 8.0;
-    const double stage3_fare = 12.0;
-    const double stage4_fare = 15.0;
-
-
-    int start = -1;
-    int ends = -1;
-
-    /* for (size_t i = 0; i < allPaths.size(); ++i) {
-         allPaths[i];
-
-
-         if (allPaths[i] == start_station) {
-             start = static_cast<int>(i);
-         }
-         if (allPaths[i] == end_station) {
-             ends = static_cast<int>(i);
-         }
-
-
-
-
-
-     }*/ /*int size= abs(ends - start);
-
-     int num_stations_traveled = size - 1;*/ // Calculate absolute difference
-    cout << "num_stations_traveled  " << num_stations_traveled;
-
-    RewardProgram myreward;
-    if (myreward.check_reward())
-        cout << "Fare: 0 LE" << endl;
-    else if (num_stations_traveled >= 0 && num_stations_traveled <= 9)
-        cout << "Fare: " << stage1_fare << " LE" << endl;
-    else if (num_stations_traveled >= 10 && num_stations_traveled <= 16)
-        cout << "Fare: " << stage2_fare << " LE" << endl;
-    else if (num_stations_traveled >= 17 && num_stations_traveled <= 23)
-        cout << "Fare: " << stage3_fare << " LE" << endl;
-    else if (num_stations_traveled > 23)
-        cout << "Fare: " << stage4_fare << " LE" << endl;
-    else
-        cout << "Invalid number of stations traveled." << endl;
-}
-
 
 
 std::string Ride::timePointToString(const std::chrono::system_clock::time_point& tp)

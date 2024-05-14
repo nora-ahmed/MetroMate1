@@ -1,6 +1,31 @@
 ﻿#include "Station.h"
 #include <string>
 #include<iostream>
+#include<fstream>
+#include<sstream>
+void Station::read(ifstream* f,string stationName)
+{
+    string line;
+    while (getline(*f, line)) {
+        stringstream ss(line);
+        string num1, num2;
+        getline(ss, num1, ',');
+        getline(ss, num2, ',');
+
+        addData(stationName, stoi(num1), stod(num2));
+      
+    }
+}
+void Station::write(ofstream* f, string stationName)
+{
+    for (auto it = dailyIncome.begin(); it != dailyIncome.end(); it++) {
+        if (it->first == stationName) {
+            (*f) << stationName << "," << to_string(it->second.first) << "," << to_string(it->second.second);
+            (*f) << "\n";
+        }
+    }
+   
+}
 Station::Station(string name, bool  Line1, bool Line2,bool Line3)
 {
 	

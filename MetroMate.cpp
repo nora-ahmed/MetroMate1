@@ -142,6 +142,7 @@ void readStations() {
 			bline3 = false;
 		}
 		metro.addStation(stationName, bline1, bline2, bline3);
+		metro.mapGraph[stationName].first.read(&f, stationName);
 	}
 	string lines;
 	while (getline(f, lines)) {
@@ -544,9 +545,11 @@ void bookRide() {
 				
 				else {
 		
-					RewardProgram myreward;
-					if (myreward.check_reward())
-						cout << "Fare: 0 LE" << endl;
+					
+					 if (currentUser->myReward.check_reward()) {
+						 
+						 cout << "Fare: 0 LE" << endl;
+					 }
 					else if (fare >= 0 && fare <= 9) {
 						if (currentUser->subscription.balance - stage1_fare >= 0) {
 							cout << "Fare: " << stage1_fare << " LE" << endl;
@@ -555,6 +558,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage1_fare;
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+							currentUser->myReward.increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -568,6 +572,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage2_fare;
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+							currentUser->myReward.increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -581,6 +586,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage3_fare;
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+							currentUser->myReward.increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -594,6 +600,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage4_fare;
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+							currentUser->myReward.increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -653,7 +660,7 @@ void bookRide() {
 			currentUser->subscription.numberOfTrips--;
 		}
 		else if (currentUser->subscription.ConvertToString() != "CASH") {
-			cout << "kddddddddddd";
+			
 			if (currentUser->subscription.getStageNumber() == 1) {
 				if (fare - 1 <= 9) {
 					Ride ride(from, to);
@@ -697,8 +704,8 @@ void bookRide() {
 		
 		else {
 			
-			RewardProgram myreward;
-			if (myreward.check_reward())
+		
+			if (currentUser->myReward.check_reward())
 				cout << "Fare: 0 LE" << endl;
 			else if (fare >= 0 && fare <= 9) {
 				
@@ -709,6 +716,7 @@ void bookRide() {
 					currentUser->frequent_rides[from + '-' + to]++;
 					currentUser->subscription.balance -= stage1_fare;
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+					currentUser->myReward.increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -722,6 +730,7 @@ void bookRide() {
 					cout << "Fare: " << stage2_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage2_fare;
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+					currentUser->myReward.increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -735,6 +744,7 @@ void bookRide() {
 					cout << "Fare: " << stage3_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage3_fare;
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+					currentUser->myReward.increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -748,6 +758,7 @@ void bookRide() {
 					cout << "Fare: " << stage4_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage4_fare;
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
+					currentUser->myReward.increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
