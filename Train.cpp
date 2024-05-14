@@ -25,5 +25,4 @@ void Train::write(ofstream* f)
     (*f) << "\n";
 }
 
-Train::Train(int id, int cap, int ln)
-    : trainID(id), capacity(cap), line(ln) {}
+
