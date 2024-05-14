@@ -4,9 +4,11 @@
 #include <thread>
 #include "Admin.h"
 
-Train::Train(int id, int cap, vector<Station*> route)
-    : trainID(id), capacity(cap), route(route) {}
+Train::Train(int id, int cap, vector<Station*> route, int ln)
+    : trainID(id), capacity(cap), route(route),line(ln){}
 
+Train::Train(int id, int cap, int ln)
+    : trainID(id), capacity(cap), line(ln) {}
 
 void Train::setBreakdown(bool isBroken) {
     isBreakdown = isBroken;
