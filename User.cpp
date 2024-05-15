@@ -186,90 +186,15 @@ string user::get_password() {
     return password;
 }
 
-//void user::deleteAccount(string username) {
-//    bool foundAcc = false;
-//    for (auto it = users.begin(); it != users.end(); it++) {
-//        if (it->get_username() == username) {
-//            foundAcc = true;
-//            break;
-//        }
-//    }
-//    if (!foundAcc) {
-//        cout << "Account not found " << endl;
-//        return;
-//    }
-//
-//    char choice;
-//    cout << "Are you sure you want to delete the account with the username " << username << "? (Y/N): ";
-//    cin >> choice;
-//
-//    if (toupper(choice) == 'Y') {
-//        for (auto it = users.begin(); it != users.end(); it++) {
-//            if (it->get_username() == username) {
-//                it = users.erase(it);
-//                cout << "Account deleted successfully!" << endl;
-//                return;
-//            }
-//        }
-//    }
-//    else {
-//        cout << "cancelled." << endl;
-//    }
-//}
-//void user::viewUsers() {
-//    if (users.empty()) {
-//        cout << "No users found" << endl;
-//        return;
-//    }
-//
-//    cout << "List of all users:" << endl;
-//    for (auto u : users) {
-//        cout << "Username: " << u.get_username() << ", Email: " << u.get_email() << endl;
-//    }
-//}
-//void user::editUser(string& Username) {
-//    bool found = false;
-//    for (auto it = users.begin(); it != users.end(); it++) {
-//        if (it->get_username() == Username) {
-//            found = true;
-//            int editChoice;
-//            cout << "What information do you want to edit for user " << Username << "?" << endl;
-//            cout << "1. Username" << endl;
-//            cout << "2. Email" << endl;
-//            cout << "3. Password" << endl;
-//            cout << "4. Cancel" << endl;
-//            cout << "Enter your choice: ";
-//            cin >> editChoice;
-//
-//            switch (editChoice) {
-//            case 1: {
-//                it->changeUsername();
-//                cout << "Username updated successfully!" << endl;
-//                break;
-//            }
-//            case 2: {
-//                it->changeEmail();
-//                cout << "Email updated successfully!" << endl;
-//                break;
-//            }
-//            case 3: {
-//                it->changePassword();
-//                cout << "Password updated successfully!" << endl;
-//                break;
-//            }
-//            case 4:
-//                cout << "Editing cancelled." << endl;
-//                break;
-//            default:
-//                cout << "Invalid choice." << endl;
-//            }
-//            break;
-//        }
-//    }
-//    if (!found) {
-//        cout << "User with username " << Username << " not found." << endl;
-//    }
-//}
+void user::set_username(string newUsern) {
+    username = newUsern;
+}
+void user::set_password(string newUserp) {
+    password = newUserp;
+}
+void user::set_email(string newUsere) {
+    email = newUsere;
+}
 void user::sendQuestion(string question) {
     questionStack.push(question);
     cout << "Question sent: " << question << endl;

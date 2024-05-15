@@ -4,36 +4,34 @@
 #include<fstream>
 #include<sstream>
 
- int Station:: numberOfTickets;
- double Station::totalIncome;
-void Station::read(ifstream* f,string stationName)
+ int Station:: numberOfTickets=0;
+ double Station::totalIncome=0;
+void Station::read(ifstream* f)
 {
     string line;
     while (getline(*f, line)) {
         stringstream ss(line);
-        string num1, num2;
+        string num1, num2,date;
+        getline(ss, date, ',');
         getline(ss, num1, ',');
         getline(ss, num2, ',');
 
-        addData(stationName, stoi(num1), stod(num2));
+        addData(date, stoi(num1), stod(num2));
       
     }
 }
 void Station::write(ofstream* f)
 {
-    (*f) << "-";
+    
     for (auto it = dailyIncome.begin(); it != dailyIncome.end(); it++) {
       
             (*f) << it->first << "," << to_string(it->second.first) << "," << to_string(it->second.second);
             (*f) << "\n";
         
     }
-    (*f) << "-";
+    (*f) << "-"<<"\n";
    
 }
-
-
-
 Station::Station(string name, bool  Line1, bool Line2,bool Line3)
 {
 	
@@ -44,7 +42,6 @@ Station::Station(string name, bool  Line1, bool Line2,bool Line3)
 
 	
 }
-
 Station::Station()
 {
 }
@@ -58,8 +55,6 @@ int Station::getLine()
 {
 	return line;
 }
-
-
 
 
 void Station::addData(string date, int numTickets, double income) {
@@ -83,11 +78,11 @@ void Station::calculateWeeklyIncome() {
         string date = it->first;
         int numTickets = it->second.first;
         double income = it->second.second;
-
+        cout << date << endl;
         int year = stoi(date.substr(0, 4));
         int month = stoi(date.substr(5, 2));
         int day = stoi(date.substr(8, 2));
-
+        cout << year << " " << month << " "<<day<<endl;
         int dayOfYear = (month - 1) * 30 + day;
         int week = (dayOfYear - 1) / 7 + 1;
 
@@ -96,6 +91,7 @@ void Station::calculateWeeklyIncome() {
             weeklyIncome.resize(week + 1, { 0, 0.0 });
         }
 
+     
         weeklyIncome[week - 1].first += numTickets;
         weeklyIncome[week - 1].second += income;
     }

@@ -18,7 +18,7 @@ public:
 	bool line3;
 
 	map<std::string, std::pair<int, double>> dailyIncome; // Date -> number of tickets, income
-	void read(ifstream* f, string stationName);
+	void read(ifstream* f);
 	void write(ofstream* f);
 	vector<pair<int, double>> weeklyIncome;
 	vector<pair<int, double>> monthlyIncome;

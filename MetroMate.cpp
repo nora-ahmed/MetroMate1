@@ -142,7 +142,21 @@ void readStations() {
 			bline3 = false;
 		}
 		metro.addStation(stationName, bline1, bline2, bline3);
-		metro.mapGraph[stationName].first.read(&f, stationName);
+		string lined;
+		while (getline(f, lined)) {
+			if (lined == "-") {
+				break;
+			}
+			stringstream sm(lined);
+			string num1, num2, date;
+			getline(sm, date, ',');
+			getline(sm, num1, ',');
+			getline(sm, num2, ',');
+
+			metro.mapGraph[stationName].first.addData(date, stoi(num1), stod(num2));
+
+		}
+
 	}
 	string lines;
 	while (getline(f, lines)) {
@@ -262,17 +276,17 @@ void writeAllFiles() {
 	}
 	admin.write(&f2);
 	f2.close();
-	//ofstream f3;
-	//f3.open("Trains.txt");
-	//if (!f3) {
-	//	cerr << "Error opening file for reading." << endl;
-	//	return;
-	//}
-	//admin.writeTrians(&f3);
-	//f3.close();
+	ofstream f3;
+	f3.open("Trains.txt");
+	if (!f3) {
+		cerr << "Error opening file for reading." << endl;
+		return;
+	}
+	admin.writeTrians(&f3);
+	f3.close();
 }
 void readAllFiles() {
-	//readStations();
+	readStations();
 
 	ifstream f;
 	f.open("Users.txt");
@@ -298,14 +312,14 @@ readUsers(&f);
 	}
 	admin.read(&f2);
 	f2.close();
-	//ifstream f3;
-	//f3.open("Trains.txt");
-	//if (!f3) {
-	//	cerr << "Error opening file for reading." << endl;
-	//	return;
-	//}
-	//admin.readTrains(&f3);
-	//f3.close();
+	ifstream f3;
+	f3.open("Trains.txt");
+	if (!f3) {
+		cerr << "Error opening file for reading." << endl;
+		return;
+	}
+	admin.readTrains(&f3);
+	f3.close();
 }
 void addGraph() {
 	//readStations();
@@ -531,7 +545,7 @@ void bookRide() {
 					currentUser->frequent_rides[first + '-' + second]++;
 					currentUser->subscription.numberOfTrips--;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = metro.mapGraph[first].first.numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[first].first.addData(time, tickets, 0.0);
 
 				}
@@ -544,7 +558,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.numberOfTrips--;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, 0.0);
 						}
 						else {
@@ -558,7 +572,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.numberOfTrips--;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, 0.0);
 						}
 						else {
@@ -572,7 +586,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.numberOfTrips--;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, 0.0);
 						}
 						else {
@@ -585,7 +599,7 @@ void bookRide() {
 						currentUser->frequent_rides[first + '-' + second]++;
 						currentUser->subscription.numberOfTrips--;
 						string time = timePointToString(std::chrono::system_clock::now());
-						int tickets = metro.mapGraph[first].first.numberOfTickets++;
+						int tickets = ++Station::numberOfTickets;
 						metro.mapGraph[first].first.addData(time, tickets, 0.0);
 					}
 				}
@@ -604,7 +618,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage1_fare;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, stage1_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 							currentUser->myReward->increment_points();
@@ -621,7 +635,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage2_fare;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, stage2_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 							currentUser->myReward->increment_points();
@@ -638,7 +652,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage3_fare;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, stage3_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 							currentUser->myReward->increment_points();
@@ -655,7 +669,7 @@ void bookRide() {
 							currentUser->frequent_rides[first + '-' + second]++;
 							currentUser->subscription.balance -= stage4_fare;
 							string time = timePointToString(std::chrono::system_clock::now());
-							int tickets = metro.mapGraph[first].first.numberOfTickets++;
+							int tickets = ++Station::numberOfTickets;
 							metro.mapGraph[first].first.addData(time, tickets, stage4_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 							currentUser->myReward->increment_points();
@@ -712,7 +726,7 @@ void bookRide() {
 			currentUser->frequent_rides[from + '-' + to]++;
 			currentUser->subscription.numberOfTrips--;
 			string time = timePointToString(std::chrono::system_clock::now());
-			int tickets = Station::numberOfTickets++;
+			int tickets = ++Station::numberOfTickets;
 			metro.mapGraph[from].first.addData(time, tickets, 0.0);
 		}
 		else if (currentUser->subscription.ConvertToString() != "CASH") {
@@ -723,7 +737,7 @@ void bookRide() {
 					currentUser->frequent_rides[from + '-' + to]++;
 					currentUser->subscription.numberOfTrips--;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, 0.0);
 				}
 				else {
@@ -737,7 +751,7 @@ void bookRide() {
 					currentUser->frequent_rides[from + '-' + to]++;
 					currentUser->subscription.numberOfTrips--;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, 0.0);
 				}
 				else {
@@ -751,7 +765,7 @@ void bookRide() {
 					currentUser->frequent_rides[from + '-' + to]++;
 					currentUser->subscription.numberOfTrips--;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, 0.0);
 				}
 				else {
@@ -764,7 +778,7 @@ void bookRide() {
 				currentUser->frequent_rides[from + '-' + to]++;
 				currentUser->subscription.numberOfTrips--;
 				string time = timePointToString(std::chrono::system_clock::now());
-				int tickets = Station::numberOfTickets++;
+				int tickets = ++Station::numberOfTickets;
 				metro.mapGraph[from].first.addData(time, tickets, 0.0);
 			}
 		}
@@ -784,7 +798,7 @@ void bookRide() {
 					currentUser->frequent_rides[from + '-' + to]++;
 					currentUser->subscription.balance -= stage1_fare;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, stage1_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 					currentUser->myReward->increment_points();
@@ -801,7 +815,7 @@ void bookRide() {
 					cout << "Fare: " << stage2_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage2_fare;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, stage2_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 					currentUser->myReward->increment_points();
@@ -818,7 +832,7 @@ void bookRide() {
 					cout << "Fare: " << stage3_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage3_fare;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, stage3_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 					currentUser->myReward->increment_points();
@@ -835,7 +849,7 @@ void bookRide() {
 					cout << "Fare: " << stage4_fare << " LE" << endl;
 					currentUser->subscription.balance -= stage4_fare;
 					string time = timePointToString(std::chrono::system_clock::now());
-					int tickets = Station::numberOfTickets++;
+					int tickets = ++Station::numberOfTickets;
 					metro.mapGraph[from].first.addData(time, tickets, stage4_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
 					currentUser->myReward->increment_points();
@@ -994,6 +1008,74 @@ void mainMenu() {
 //		}
 //	} while (!exitMenu);
 //}
+void userManagement() {
+	int userChoice;
+	string username;
+
+	cout << "User Management:" << endl;
+	cout << "Enter the username of the user you want to manage: ";
+	cin >> username;
+
+	bool found = false;
+	for (auto it = users.begin(); it != users.end(); ++it) {
+		if ((*it)->get_username() == username) {
+			currentUser = *it;
+			found = true;
+			break;
+		}
+	}
+
+	if (!found) {
+		cout << "User not found." << endl;
+		return;
+	}
+
+	cout << "Choose an option:" << endl;
+	cout << "1. Change username" << endl;
+	cout << "2. Change email" << endl;
+	cout << "3. Change password" << endl;
+	cout << "4. delete user" << endl;
+	cout << "5. Back to main menu" << endl;
+	cout << "Enter your choice: ";
+	cin >> userChoice;
+
+	switch (userChoice) {
+	case 1: {
+		string newUsername;
+		cout << "Enter new username: ";
+		cin >> newUsername;
+		currentUser->set_username(newUsername);
+		cout << "Username changed successfully!" << endl;
+		break;
+	}
+	case 2: {
+		string newEmail;
+		cout << "Enter new email: ";
+		cin >> newEmail;
+		currentUser->set_email(newEmail);
+		cout << "Email changed successfully!" << endl;
+		break;
+	}
+	case 3: {
+		string newPassword;
+		cout << "Enter new password: ";
+		cin >> newPassword;
+		currentUser->set_password(newPassword);
+		cout << "Password changed successfully!" << endl;
+		break;
+	}
+	case 4: {
+		delete currentUser;
+		users.remove(currentUser);
+		cout << "User removed successfully." << endl;
+		break;
+	}
+	case 5:
+		break;
+	default:
+		cout << "Invalid choice. Please try again." << endl;
+	}
+}
 void AdminMenu() {
 
 	cout << "-------------------- Admin Menu --------------------" << endl;
@@ -1019,7 +1101,7 @@ Subscription sub;
 
 		switch (choice) {
 		case 1:
-			//admin.UserManagement();
+			userManagement();
 			break;
 		case 2:
 			admin.MetroManagement();
@@ -1098,7 +1180,7 @@ int main(){
 	//"Ghamra", "Nasser"
 	//readStations();
 
-	addGraph();
+	//addGraph();
 	admin.metro = &metro;
 	readAllFiles();
 	//readStations();

@@ -4,10 +4,7 @@
 
 void Metro::insertAt(string NewStaion, string atStaion)
 {
-
 	mapGraph[atStaion].second.push_back(&(mapGraph[NewStaion].first));
-	mapGraph[NewStaion].second.push_back(&(mapGraph[atStaion].first));
-
 }
 
 void Metro::deleteStation(string name)
@@ -164,44 +161,23 @@ int Metro::getPath(string s,string d)
 void Metro::getAllPaths(string u, string d, 
 	vector<string> path,vector<vector<string>>* allPaths)
 {
-	// Mark the current node and store it in path[]
 	visited[u] = true;
-
 	path.push_back(u);
-
-	// If current vertex is same as destination, then print
-	// current path[]
 	if (u == d) {
 		allPaths->push_back(path);
-
-		/*for (int i = 0; i < path.size(); i++)
-			cout << path[i] << " ";
-		cout << endl;*/
 	}
-	else // If current vertex is not destination
+	else
 	{
-		// Recur for all the vertices adjacent to current
-		// vertex
-		
 		for (int i = 0; i < mapGraph[u].second.size(); i++)
 			if (!visited[mapGraph[u].second[i]->getName()])
 				getAllPaths(mapGraph[u].second[i]->getName(), d, path,allPaths);
 	}
-
-	// Remove current vertex from path[] and mark it as
-	// unvisited
 	visited[u] = false;
 }
 vector<Station*> Metro::getStationsForLine(int line) {
 	vector<Station*> lineStations;
-
-	// Iterate through all stations in the mapGraph
-
-
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {
 		Station* station = &it->second.first;
-
-		// Check if the station belongs to the specified line
 		switch (line) {
 		case 1:
 			if (station->line1) {
@@ -225,36 +201,13 @@ vector<Station*> Metro::getStationsForLine(int line) {
 	return lineStations;
 }
 
-/*void Metro::DFS(string from, string to)
-{
-	
-	visited[from] = true;
-	cout << from << " ";
-	if (from == to) {
-		cout << endl; 
-		return;
-	}
-	for (int i = 0; i < mapGraph[from].size(); i++) {
-		if (!visited[mapGraph[from][i].getName()]) {
-			DFS(mapGraph[from][i].getName(), to);
-		}
-	}
-	
-	visited[from] = false;
 
-}
-*/
 void Metro::writeFile(ofstream* f)
 {
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {
 		(*f) << it->second.first.toString();
 		(*f) << "\n";
-		
-			
-			
-			it->second.first.write(f);
-	
-		
+			it->second.first.write(f);	
 	}
 	(*f) << ';'<<"\n";
 	for (auto it = mapGraph.begin(); it != mapGraph.end(); it++) {

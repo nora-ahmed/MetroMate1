@@ -4,26 +4,14 @@ using namespace std;
 
 queue<pair<string, string>> SupportRespones;
 
-//void Admin::FareManagement(Ride& ride) {
-//
-//    int stageNumber;
-//    double newPrice;
-//
-//    cout << "Enter the stage number :" << endl;
-//    cin >> stageNumber;
-//
-//    cout << "Enter the new fare:" << endl;
-//    cin >> newPrice;
-//    ride.UpdateStagePrice(stageNumber, newPrice);
-//
-//}
 
 void Admin::StationManagement() {
     int choice;
     string stationName;
 
     cout << "Write The Station Name :" << endl;
-    cin >> stationName;
+    cin.ignore();
+        getline(cin, stationName);
 
     cout << "===============================" << endl;
     cout << "Choose :" << endl;
@@ -119,46 +107,7 @@ void Admin::FareManagement(double& stage1_fare, double& stage2_fare, double& sta
     cout << "Fare updated successfully for stage " << stageNumber << endl;
 }
 
-//void Admin::UserManagement() {
-//
-//    int choice;
-//    bool exitMenu = false;
-//
-//    do {
-//        cout << "-------------------- User Management Menu --------------------" << endl;
-//        cout << endl;
-//        cout << "1. View all users\n";
-//        cout << "2. Edit a user\n";
-//        cout << "3. Remove a user\n";
-//        cout << "4. Back to main menu\n";
-//        cout << "Enter your choice: ";
-//        cin >> choice;
-//
-//        string username1;
-//        string username2;
-//
-//        switch (choice) {
-//        case 1:
-//            User.viewUsers();
-//            break;
-//        case 2:
-//            cout << "enter the username of the user you want to edit" << endl;
-//            cin >> username1;
-//            User.editUser(username1);
-//            break;
-//        case 3:
-//            cout << "enter the username of the user you want to delete" << endl;
-//            cin >> username2;
-//            User.deleteAccount(username2);
-//            break;
-//        case 4:
-//            exitMenu = true;
-//            break;
-//        default:
-//            cout << "Invalid choice. Please try again." << endl;
-//        }
-//    } while (!exitMenu);
-//}
+
 void Admin::MetroManagement() {
     int choice;
     do {
@@ -196,6 +145,7 @@ void Admin::MetroManagement() {
             cin >> connectedTo;
             metro->addStation(name, line1, line2, line3);
             metro->insertAt(name, connectedTo);
+            metro->insertAt(connectedTo, name);
             break;
         }
         case 2: {

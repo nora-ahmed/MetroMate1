@@ -18,11 +18,13 @@ class user {
     string password;
 
 public:
-   // static list<user> users; 
+ 
     list<Ride>user_rides;
     map<string,int>frequent_rides;
     stack<string>questionStack;
-  //  queue<pair<string, string>> supportResponses;
+    void set_username(string);
+    void set_password(string);
+    void set_email(string);
     RewardProgram* myReward;
     Subscription subscription;
     void display_ride_history();
