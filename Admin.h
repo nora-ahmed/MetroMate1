@@ -22,6 +22,7 @@ public:
     void write(ofstream* f);
     void read(ifstream* f);
     void  MetroManagement();
+    void FareManagement(double& stage1_fare, double& stage2_fare, double& stage3_fare, double& stage4_fare);
     void UserManagement();
     void FareManagement(Ride& ride);
     void StationManagement();

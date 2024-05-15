@@ -9,12 +9,12 @@ using namespace std;
 
 stack<string>questionStack;
 
-user::user(string new_user_name, string new_user_email, string new_user_password, int points,int trips, double money, string type, string start, string end, int stages) {
+user::user(string new_user_name, string new_user_email, string new_user_password, int point,int trips, double money, string type, string start, string end, int stages) {
     username = new_user_name;
     email = new_user_email;
     password = new_user_password;
     subscription =   Subscription(trips,money,type,start,end,stages);
-    myReward
+    myReward->points = point;
 }
 void user:: writeUsers(user* write,ofstream* f)
 {
@@ -175,7 +175,7 @@ string user::get_email() {
 
 string user::toString()
 {
-    return username + "," + email + "," + password+","+to_string(myReward.getPoints());
+    return username + "," + email + "," + password+","+to_string(myReward->getPoints());
 }
 
 string user::get_username() {
@@ -279,10 +279,11 @@ void user::getReply(queue<pair<string, string>>* replies) {
         cout << "No replies available" << endl;
         return;
     }
-  /*  pair<string, string> reply = replies.front();
-    replies.pop();*/
-    cout << "Question: " << replies->front().first << endl;
-    cout << "Reply: " << replies->front().second << endl;
+    while (!replies->empty()) {
+        cout << "Question: " << replies->front().first << endl;
+        cout << "Reply: " << replies->front().second << endl;
+        replies->pop();
+    }
 }
 void user::customerService(queue<pair<string, string>>* replies) {
     int choice;

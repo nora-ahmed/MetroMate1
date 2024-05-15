@@ -6,9 +6,22 @@
 #include<vector>
 #include<iomanip>
 
+ int Subscription:: stage1_fee_student = 33;
+int Subscription:: stage2_fee_student = 41;
+ int Subscription::stage3_fee_student = 50;
+int Subscription::stage4_fee_student = 65;
 
+int Subscription::stage1_fee_public_month = 230;
+int Subscription::stage2_fee_public_month = 290;
+int Subscription::stage3_fee_public_month = 340;
+int Subscription::stage4_fee_public_month = 450;
 
-vector<Subscription::NewSubscription*>Subscription::newSubscription;
+int Subscription::stage1_fee_public_year = 1500;
+int Subscription:: stage2_fee_public_year = 2500;
+int Subscription:: stage3_fee_public_year = 3500;
+int Subscription:: stage4_fee_public_year = 4500;
+
+vector<Subscription::NewSubscription>Subscription::newSubscription;
 Subscription::Subscription() {
 	balance = 0;
 	numberOfTrips = 0;
@@ -45,8 +58,8 @@ void Subscription::ChooseSubscription() {
 			cout << "Stage 3. Provide Station From 17=> 23" << endl;
 			cout << "Stage 4. Provide Station Gratear Than 23" << endl;
 			cout << "----------" << endl;
-			cout << "Number of Trips will be 180 " << endl;
-			cout << "The duration of Subscription will be 3 months" << endl;
+			cout << "Number of Trips will be "<<numberOfTrips << endl;
+			cout << "The duration of Subscription will be "<<studentDuration <<"months" << endl;
 			cout << "----------" << endl;
 			cout << "The higher The Stage The Subscription Fee Will be More Expensive!!!" << endl;
 			cout << "----------" << endl;
@@ -55,7 +68,7 @@ void Subscription::ChooseSubscription() {
 			while (true) {
 				cin >> stageNumber;
 				if (stageNumber == 1) {
-					cout << "The Subscription Fee Will Be : 33 LE" << endl;
+					cout << "The Subscription Fee Will Be :"<<stage1_fee_student <<"LE" << endl;
 					cout << "Enter Y to Confirm OR Enter N to Decline : ";
 					cin >> confirm;
 					if (confirm == 'Y' || confirm == 'y') {
@@ -71,7 +84,7 @@ void Subscription::ChooseSubscription() {
 
 				}
 				if (stageNumber == 2) {
-					cout << "The Subscription Fee Will Be : 41 LE" << endl;
+					cout << "The Subscription Fee Will Be :" << stage2_fee_student << "LE" << endl;
 					cout << "Enter Y to Confirm OR Enter N to Decline : ";
 					cin >> confirm;
 					if (confirm == 'Y' || confirm == 'y') {
@@ -87,7 +100,7 @@ void Subscription::ChooseSubscription() {
 					}
 				}
 				if (stageNumber == 3) {
-					cout << "The Subscription Fee Will Be : 50 LE" << endl;
+					cout << "The Subscription Fee Will Be :" << stage3_fee_student << "LE" << endl;
 					cout << "Enter Y to Confirm OR Enter N to Decline : ";
 					cin >> confirm;
 					if (confirm == 'Y' || confirm == 'y') {
@@ -103,8 +116,7 @@ void Subscription::ChooseSubscription() {
 					}
 				}
 				if (stageNumber == 4) {
-					cout << "The Subscription Fee Will Be : 65 LE" << endl;
-					cout << "Enter Y to Confirm OR Enter N to Decline : ";
+					cout << "The Subscription Fee Will Be :" << stage4_fee_student << "LE" << endl;					cout << "Enter Y to Confirm OR Enter N to Decline : ";
 					cin >> confirm;
 					if (confirm == 'Y' || confirm == 'y') {
 						subscriptiontype = SubscriptionType::STUDENT;
@@ -143,7 +155,7 @@ void Subscription::ChooseSubscription() {
 				while (true) {
 					cin >> stageNumber;
 					if (stageNumber == 1) {
-						cout << "The Subscription Fee Will Be : 230 LE" << endl;
+						cout << "The Subscription Fee Will Be : "<<stage1_fee_public_month<<" LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -159,7 +171,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 2) {
-						cout << "The Subscription Fee Will Be : 290 LE" << endl;
+						cout << "The Subscription Fee Will Be : " << stage2_fee_public_month << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -175,7 +187,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 3) {
-						cout << "The Subscription Fee Will Be : 340 LE" << endl;
+						cout << "The Subscription Fee Will Be : " << stage3_fee_public_month << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -190,7 +202,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 4) {
-						cout << "The Subscription Fee Will Be : 450 LE" << endl;
+						cout << "The Subscription Fee Will Be : " << stage4_fee_public_month << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -215,7 +227,7 @@ void Subscription::ChooseSubscription() {
 				while (true) {
 					cin >> stageNumber;
 					if (stageNumber == 1) {
-						cout << "The Subscription Fee Will Be :1500 LE" << endl;
+						cout << "The Subscription Fee Will Be :"<<stage1_fee_public_year<<" LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -231,7 +243,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 2) {
-						cout << "The Subscription Fee Will Be : 2500 LE" << endl;
+						cout << "The Subscription Fee Will Be :" << stage2_fee_public_year << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -247,7 +259,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 3) {
-						cout << "The Subscription Fee Will Be : 3500 LE" << endl;
+						cout << "The Subscription Fee Will Be :" << stage3_fee_public_year << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -262,7 +274,7 @@ void Subscription::ChooseSubscription() {
 						}
 					}
 					if (stageNumber == 4) {
-						cout << "The Subscription Fee Will Be : 4500 LE" << endl;
+						cout << "The Subscription Fee Will Be :" << stage4_fee_public_year << " LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
 						cin >> confirm;
 						if (confirm == 'Y' || confirm == 'y') {
@@ -473,8 +485,8 @@ void Subscription::ChangeNumberOFTrips() {
 				cout << "enter subscription name : ";
 				cin >> subname;
 				for (auto it = newSubscription.begin(); it != newSubscription.end(); it++) {
-					if ((*it)->name == subname) {
-						(*it)->newTrips = newTrip;
+					if ((*it).name == subname) {
+						(*it).newTrips = newTrip;
 						cout << "number of trips updated successfully " << endl;
 						break;
 					}
@@ -490,7 +502,7 @@ void Subscription::ChangeNumberOFTrips() {
 void Subscription::writeNew(ofstream* f)
 {
 	for (int i = 0; i < newSubscription.size(); i++) {
-		(*f) << newSubscription[i]->newToString() << "\n"; 
+		(*f) << newSubscription[i].newToString() << "\n"; 
 	}
 }
 
@@ -506,9 +518,7 @@ void Subscription::readWrite(ifstream* f)
 		getline(ss, newtrips, ',');
 		getline(ss, fees, ',');
 	
-	NewSubscription* SUB=new NewSubscription(Name,stoi(Duration),stoi(newtrips),stoi(fees));
-	
-		
+	NewSubscription SUB(Name,stoi(Duration),stoi(newtrips),stoi(fees));
 		newSubscription.push_back(SUB);
 	}
 }
@@ -741,68 +751,19 @@ void Subscription::RemoveSubscriptionPLan() {
 			else {
 				cout << "enter subscription name : ";
 				cin >> subname;
-				for (auto it = newSubscription.begin(); it != newSubscription.end(); it++) {
-					if ((*it)->name == subname) {
-						newSubscription.erase(it);
+				for (int i = 0; i < newSubscription.size(); i++) {
+					if (newSubscription[i].name == subname) {
+						newSubscription.erase(newSubscription.begin()+i);
 						cout << "subscription deleted successfully " << endl;
 					}
 				}
+				break;
 			}
 		default:
 			cout << "invalid option!!!\n";
 			break;
 		}
 	} while (choice != 6);
-}
-void Subscription::ActivateSubscriptionPLan() {
-	int choice;
-	do {
-		cout << "1.STUDENT" << endl;
-		cout << "2.PUBLIC MONTH" << endl;
-		cout << "3.PUBLIC YEAR" << endl;
-		cout << "4.CASH" << endl;
-		cout << "5.EXIT" << endl;
-		cout << "Choose Subscription plan to Activate from the system: ";
-		cin >> choice;
-
-		switch (choice) {
-		case 1: {
-			if (studentFlag == true) {
-				cout << "the subscription is already removed " << endl;
-				break;
-			}
-			studentFlag = true;
-			break;
-		}
-		case 2: {
-			if (publicMonthFlag == true) {
-				cout << "the subscription is already removed " << endl;
-				break;
-			}
-			publicMonthFlag = true;
-			break;
-		}
-		case 3: {
-			if (publicYearFlag == true) {
-				cout << "the subscription is already removed " << endl;
-				break;
-			}
-			publicYearFlag = true;
-			break;
-		}
-		case 4: {
-			if (cashFlag == true) {
-				cout << "the subscription is already removed " << endl;
-				break;
-			}
-			cashFlag = true;
-			break;
-		}
-		default:
-			cout << "invalid option!!!\n";
-			break;
-		}
-	} while (choice != 5);
 }
 void Subscription::UpdateStagePrice() {
 	int choice;
@@ -924,10 +885,10 @@ void Subscription::UpdateStagePrice() {
 				cout << "enter subscription name : ";
 				cin >> subname;
 				for (auto it = newSubscription.begin(); it != newSubscription.end(); it++) {
-					if ((*it)->name == subname) {
-						(*it)->fee = price;
+					if ((*it).name == subname) {
+						(*it).fee = price;
 						cout << "Fee updated successfully " << endl;
-						cout << "new price " << (*it)->fee << " LE" << endl;
+						cout << "new price " << (*it).fee << " LE" << endl;
 						break;
 					}
 				}
@@ -982,8 +943,8 @@ void Subscription::ChangeDuration() {
 				cout << "enter subscription name : ";
 				cin >> subname;
 				for (auto it = newSubscription.begin(); it != newSubscription.end(); it++) {
-					if ((*it)->name == subname) {
-						(*it)->duration = newDuration;
+					if ((*it).name == subname) {
+						(*it).duration = newDuration;
 						cout << "Duration updated successfully " << endl;
 						break;
 					}
@@ -1015,7 +976,7 @@ void Subscription::AddNewSubscription() {
 	cin >> SUB.fee;
 
 
-	newSubscription.push_back(&SUB);
+	newSubscription.push_back(SUB);
 }
 SubscriptionType Subscription::getType(string type)
 {
@@ -1043,10 +1004,10 @@ SubscriptionType Subscription::getType(string type)
 }
 void Subscription::DisplyNewSubscription() {
 	for (int i = 0; i < newSubscription.size(); i++) {
-		cout << "Subscription name : " << newSubscription[i]->name << endl;
-		cout << "Subscription Duration " << newSubscription[i]->duration << endl;
-		cout << "Subscription Fee " << newSubscription[i]->fee << endl;
-		cout << "Subscription Trips " << newSubscription[i]->newTrips << endl;
+		cout << "Subscription name : " << newSubscription[i].name << endl;
+		cout << "Subscription Duration " << newSubscription[i].duration << endl;
+		cout << "Subscription Fee " << newSubscription[i].fee << endl;
+		cout << "Subscription Trips " << newSubscription[i].newTrips << endl;
 	}
 }
 bool Subscription::ChooseNewSubscription() {
@@ -1064,11 +1025,11 @@ bool Subscription::ChooseNewSubscription() {
 		cin >> subName;
 
 		for (i = 0; i < newSubscription.size(); i++) {
-			if (newSubscription[i]->name == subName) {
-				cout << "subscription name : " << newSubscription[i]->name << endl;
-				cout << "Duration : " << newSubscription[i]->duration << " months" << endl;
-				cout << "number of trips : " << newSubscription[i]->newTrips << endl;
-				cout << "Fee : " << newSubscription[i]->fee << " LE " << endl;
+			if (newSubscription[i].name == subName) {
+				cout << "subscription name : " << newSubscription[i].name << endl;
+				cout << "Duration : " << newSubscription[i].duration << " months" << endl;
+				cout << "number of trips : " << newSubscription[i].newTrips << endl;
+				cout << "Fee : " << newSubscription[i].fee << " LE " << endl;
 				cout << "Enter Y to Confirm OR Enter N to Decline : ";
 				cin >> choice;
 				if (choice == "y" || choice == "Y") {
@@ -1080,10 +1041,10 @@ bool Subscription::ChooseNewSubscription() {
 	} while (found != true && subName != "exit");
 
 	if (found) {
-		subscriptionName = newSubscription[i]->name;
-		numberOfTrips = newSubscription[i]->newTrips;
+		subscriptionName = newSubscription[i].name;
+		numberOfTrips = newSubscription[i].newTrips;
 		startDate = std::chrono::system_clock::now();
-		endtDate = startDate + std::chrono::hours(24 * 30 * newSubscription[i]->duration);
+		endtDate = startDate + std::chrono::hours(24 * 30 * newSubscription[i].duration);
 		return true;
 	}
 	else
@@ -1104,7 +1065,7 @@ void Subscription::SubscriptionManagement() {
 		cout << "1.create new plan " << endl;
 		cout << "2.delete subscription plan" << endl;
 		cout << "3.Modify plan" << endl;
-		cout << "4.Activate a classic plan" << endl;
+
 		cout << "5.Exit" << endl;
 
 		cin >> choice;
@@ -1137,9 +1098,7 @@ void Subscription::SubscriptionManagement() {
 				break;
 			}
 		}
-		else if (choice == 4) {
-			ActivateSubscriptionPLan();
-		}
+		
 		else
 			cout << "invalid input " << endl;
 

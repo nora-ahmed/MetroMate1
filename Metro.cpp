@@ -12,14 +12,10 @@ void Metro::insertAt(string NewStaion, string atStaion)
 
 void Metro::deleteStation(string name)
 {
-	if (mapGraph.find(name) == mapGraph.end()) {
-		cout << "Station " << name << " does not exist." << endl;
-		return;
-	}
 
 	// Delete connections
 	for (int i = 0; i < mapGraph[name].second.size(); i++) {
-		for (int j = i + 1; j < mapGraph[name].second.size(); j++) {
+		for (int j = i+1 ; j < mapGraph[name].second.size(); j++) {
 			insertAt(mapGraph[name].second[i]->getName(), mapGraph[name].second[j]->getName());
 		}
 	}
@@ -77,17 +73,17 @@ void Metro::editStation(string name, string newName) {
 	station.stationName = newName;
 	cout << "Station " << name << " renamed to " << newName << " successfully" << endl;
 }
-int Metro::printAllPaths(string s,string d)
+int Metro::getPath(string s,string d)
 {
 	
 	vector<string> path;
 	vector<vector<string>> allPaths;
 	for (auto it = mapGraph.begin(); it !=mapGraph.end() ; it++)
 		visited[it->first] = false;
-	printAllPathsUtil(s, d,  path,&allPaths);
+	getAllPaths(s, d,  path,&allPaths);
 	if (allPaths.size() == 1) {
 		cout << allPaths[0][0];
-		for (int i = 0; i < allPaths[0].size(); i++) {
+		for (int i = 1; i < allPaths[0].size(); i++) {
 			cout << "->" << allPaths[0][i];
 		}
 		cout << endl;
@@ -165,7 +161,7 @@ int Metro::printAllPaths(string s,string d)
 	}
 }
 
-void Metro::printAllPathsUtil(string u, string d, 
+void Metro::getAllPaths(string u, string d, 
 	vector<string> path,vector<vector<string>>* allPaths)
 {
 	// Mark the current node and store it in path[]
@@ -189,7 +185,7 @@ void Metro::printAllPathsUtil(string u, string d,
 		
 		for (int i = 0; i < mapGraph[u].second.size(); i++)
 			if (!visited[mapGraph[u].second[i]->getName()])
-				printAllPathsUtil(mapGraph[u].second[i]->getName(), d, path,allPaths);
+				getAllPaths(mapGraph[u].second[i]->getName(), d, path,allPaths);
 	}
 
 	// Remove current vertex from path[] and mark it as

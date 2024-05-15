@@ -3,7 +3,7 @@
 #include"RewardProgram.h"
 
 using namespace std;
-
+int RewardProgram:: points;
 RewardProgram :: RewardProgram()
 {
 		points=0;
@@ -16,10 +16,10 @@ RewardProgram::RewardProgram(int point)
 
 bool RewardProgram:: check_reward()
 	{
-		if (points >= 5)
+		if (points == 5)
 		{
+		
 			return true;
-			redeem_reward();
 		}
 		else
 			return false;

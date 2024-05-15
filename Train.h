@@ -23,5 +23,5 @@ public:
     bool isBreakdown = false;
     void setBreakdown(bool isBroken);
     void write(ofstream* f);
-    Train(int id, int cap, int ln)
+    Train(int id, int cap, int ln);
 };

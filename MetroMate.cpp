@@ -189,7 +189,7 @@ void readUsers(ifstream* f) {
 
 	
 
-		user* newUser=new user(Name, mail, passWord,points, stoi(trips), stod(money), type, start, end, stoi(stages));
+		user* newUser=new user( Name, mail, passWord,stoi(points), stoi(trips), stod(money), type, start, end, stoi(stages));
 		string lines;
 		while (true) {
 			getline(*f, lines);
@@ -262,14 +262,14 @@ void writeAllFiles() {
 	}
 	admin.write(&f2);
 	f2.close();
-	ofstream f3;
-	f3.open("Trains.txt");
-	if (!f3) {
-		cerr << "Error opening file for reading." << endl;
-		return;
-	}
-	admin.writeTrians(&f3);
-	f3.close();
+	//ofstream f3;
+	//f3.open("Trains.txt");
+	//if (!f3) {
+	//	cerr << "Error opening file for reading." << endl;
+	//	return;
+	//}
+	//admin.writeTrians(&f3);
+	//f3.close();
 }
 void readAllFiles() {
 	//readStations();
@@ -298,14 +298,14 @@ readUsers(&f);
 	}
 	admin.read(&f2);
 	f2.close();
-	ifstream f3;
-	f3.open("Trains.txt");
-	if (!f3) {
-		cerr << "Error opening file for reading." << endl;
-		return;
-	}
-	admin.readTrains(&f3);
-	f3.close();
+	//ifstream f3;
+	//f3.open("Trains.txt");
+	//if (!f3) {
+	//	cerr << "Error opening file for reading." << endl;
+	//	return;
+	//}
+	//admin.readTrains(&f3);
+	//f3.close();
 }
 void addGraph() {
 	//readStations();
@@ -524,7 +524,7 @@ void bookRide() {
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			}
 			else if (choice == 1) {
-				int fare = metro.printAllPaths(first, second);
+				int fare = metro.getPath(first, second);
 				if (currentUser->subscription.ConvertToString() == "NEW") {
 					Ride ride(first, second);
 					currentUser->user_rides.push_back(ride);
@@ -592,8 +592,10 @@ void bookRide() {
 
 				else {
 
-					if (currentUser->myReward.check_reward())
+					if (currentUser->myReward->check_reward()) {
+						currentUser->myReward->redeem_reward();
 						cout << "Fare: 0 LE" << endl;
+					}
 					else if (fare >= 0 && fare <= 9) {
 						if (currentUser->subscription.balance - stage1_fare >= 0) {
 							cout << "Fare: " << stage1_fare << " LE" << endl;
@@ -605,7 +607,7 @@ void bookRide() {
 							int tickets = metro.mapGraph[first].first.numberOfTickets++;
 							metro.mapGraph[first].first.addData(time, tickets, stage1_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-							currentUser->myReward.increment_points();
+							currentUser->myReward->increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -622,7 +624,7 @@ void bookRide() {
 							int tickets = metro.mapGraph[first].first.numberOfTickets++;
 							metro.mapGraph[first].first.addData(time, tickets, stage2_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-							currentUser->myReward.increment_points();
+							currentUser->myReward->increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -639,7 +641,7 @@ void bookRide() {
 							int tickets = metro.mapGraph[first].first.numberOfTickets++;
 							metro.mapGraph[first].first.addData(time, tickets, stage3_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-							currentUser->myReward.increment_points();
+							currentUser->myReward->increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -656,7 +658,7 @@ void bookRide() {
 							int tickets = metro.mapGraph[first].first.numberOfTickets++;
 							metro.mapGraph[first].first.addData(time, tickets, stage4_fare);
 							cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-							currentUser->myReward.increment_points();
+							currentUser->myReward->increment_points();
 						}
 						else {
 							cout << "You don't have enough balance.\n";
@@ -682,33 +684,28 @@ void bookRide() {
 		cout << "Please enter your station:\n";
 
 		while (true) {
-
+			cin.ignore();
 			getline(cin, from);
-			cout << from << "---------------";
-			for (char& c : from) {
-				c = tolower(c);
+		
+			if (metro.mapGraph.find(from) != metro.mapGraph.end()) {
+			
+				break;
 			}
-			if (metro.mapGraph.find(from) == metro.mapGraph.end()) {
-				cout << "Please enter a valid station name:\n";
-				continue;
-			}
-			break;
+			cout << "Please enter a valid station name:\n";
+		
 		}
 		cout << "Please enter your destination:\n";
 		while (true) {
-
+			
 			getline(cin, to);
-			for (char& c : to) {
-				c = tolower(c);
+		
+		
+			if (metro.mapGraph.find(to) != metro.mapGraph.end()) {	
+				break;
 			}
-			cout << to << "---------------------------";
-			if (metro.mapGraph.find(to) == metro.mapGraph.end()) {
-				cout << "Please enter a valid station name:\n";
-				continue;
-			}
-			break;
+	cout << "Please enter a valid station name:\n";
 		}
-		int fare = metro.printAllPaths(from, to);
+		int fare = metro.getPath(from, to);
 		if (currentUser->subscription.ConvertToString() == "NEW") {
 			Ride ride(from, to);
 			currentUser->user_rides.push_back(ride);
@@ -774,8 +771,10 @@ void bookRide() {
 
 		else {
 
-			if (currentUser->myReward.check_reward())
+			if (currentUser->myReward->check_reward()) {
+				currentUser->myReward->redeem_reward();
 				cout << "Fare: 0 LE" << endl;
+			}
 			else if (fare >= 0 && fare <= 9) {
 
 				if (currentUser->subscription.balance - stage1_fare >= 0) {
@@ -788,7 +787,7 @@ void bookRide() {
 					int tickets = Station::numberOfTickets++;
 					metro.mapGraph[from].first.addData(time, tickets, stage1_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-					currentUser->myReward.increment_points();
+					currentUser->myReward->increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -805,7 +804,7 @@ void bookRide() {
 					int tickets = Station::numberOfTickets++;
 					metro.mapGraph[from].first.addData(time, tickets, stage2_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-					currentUser->myReward.increment_points();
+					currentUser->myReward->increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -822,7 +821,7 @@ void bookRide() {
 					int tickets = Station::numberOfTickets++;
 					metro.mapGraph[from].first.addData(time, tickets, stage3_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-					currentUser->myReward.increment_points();
+					currentUser->myReward->increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -839,7 +838,7 @@ void bookRide() {
 					int tickets = Station::numberOfTickets++;
 					metro.mapGraph[from].first.addData(time, tickets, stage4_fare);
 					cout << "Your current balance is: " << currentUser->subscription.balance << endl;
-					currentUser->myReward.increment_points();
+					currentUser->myReward->increment_points();
 				}
 				else {
 					cout << "You don't have enough balance.\n";
@@ -995,6 +994,72 @@ void mainMenu() {
 //		}
 //	} while (!exitMenu);
 //}
+void AdminMenu() {
+
+	cout << "-------------------- Admin Menu --------------------" << endl;
+	cout << endl;
+	int choice;
+	bool exitMenu = false;
+Subscription sub;
+	do {
+
+		cout << "Enter your choice: ";
+		cout << endl;
+		cout << "1. User Management\n";
+		cout << "2. Metro Management\n";
+		cout << "3. Subscription Plan Management\n";
+		cout << "4. View All Ride Logs\n";
+		cout << "5. Station Management\n";
+		cout << "6. Fare Management\n";
+		cout << "7. Train Management\n";
+		cout << "8. Display Reviews\n";
+		cout << "9. Exit\n";
+
+		cin >> choice;
+
+		switch (choice) {
+		case 1:
+			//admin.UserManagement();
+			break;
+		case 2:
+			admin.MetroManagement();
+			break;
+		case 3: 
+			sub.SubscriptionManagement();
+			break;
+		case 4:
+			for (auto it = users.begin(); it != users.end(); it++) {
+				cout << "-------------------------";
+				cout << "name: " << (*it)->get_username() << endl;
+				(*it)->display_ride_history();
+			}
+			cout << "-------------------------";
+			break;
+		case 5:
+			admin.StationManagement();
+			break;
+		case 6:
+			admin.FareManagement(stage1_fare, stage2_fare, stage3_fare, stage4_fare);
+			break;
+
+		case 7:
+			admin.TrainManagement(&metro);
+			break;
+
+		case 8:
+			admin.CustomerServiceMenu(currentUser->questionStack);
+			admin.SendReplies();
+			break;
+		case 9:
+			exitMenu = true;
+			break;
+		default:
+			cout << "Invalid choice ,Please try again.\n";
+		}
+
+
+	} while (!exitMenu);
+}
 void login() {
 	string username, password_entered;
 	while (true) {
@@ -1005,7 +1070,7 @@ void login() {
 		cout << endl;
 		cin >> password_entered;
 		if (username == "farah" && password_entered == "farahfarah") {
-			//AdminMenu();
+			AdminMenu();
 			break;
 		}
 		else {
@@ -1032,7 +1097,9 @@ int main(){
 	//"Massara", "Nasser"
 	//"Ghamra", "Nasser"
 	//readStations();
+
 	addGraph();
+	admin.metro = &metro;
 	readAllFiles();
 	//readStations();
 	while (true) {

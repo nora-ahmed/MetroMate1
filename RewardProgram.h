@@ -1,7 +1,7 @@
 #pragma once
 class RewardProgram {
 public:
-	int points=0;
+	static int points;
 	RewardProgram();
 	RewardProgram(int point);
 	bool check_reward();

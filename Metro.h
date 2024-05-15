@@ -20,8 +20,8 @@ public:
 	void editStation(string name, string newName);
 	void deleteStation(string name);
 	void insertAt(string newStation, string atStation);
-	int  printAllPaths(string s,string d);
-	void printAllPathsUtil(string u, string d,  vector<string> path,vector<vector<string>>* allPaths);
+	int  getPath(string s,string d);
+	void getAllPaths(string u, string d,  vector<string> path,vector<vector<string>>* allPaths);
 	vector<Station*> getStationsForLine(int line);
 	//Station& getStation(string name);
 	void writeFile(ofstream* f);

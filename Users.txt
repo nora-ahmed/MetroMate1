@@ -1,28 +1,13 @@
-n,n@gmail.com,12345678
-0,316.000000,CASH,0,2024-01-01 ,1970-01-01 
-alf maskan,nozha,1970-05-13
-alf maskan,nozha,2024-05-14
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
-alf maskan,nozha,2024-05-15
+n,n@gmail.com,12345678,5
+179,0.000000,STUDENT,2,2024-05-15 ,2024-08-13 
 alf maskan,nozha,2024-05-15
 &
-meow
-boooooooooooo
-hello
-hello
-meow
+djdjdj
+dkmdslkm
+ijdfoijdkm
 ;
-f,j@gmail.com,12345688
-729,0.000000,No subscription found,3,2024-05-14 ,2025-05-09 
-alf maskan,nozha,2024-05-14
+m,m@gmail.com,12345678,0
+179,0.000000,STUDENT,3,2024-05-15 ,2024-08-13 
+alf maskan,nozha,2024-05-15
 &
 ;

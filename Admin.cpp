@@ -79,9 +79,44 @@ void Admin::read(ifstream* f) {
        
       
         cout << question << " " << replay;
-        SupportRespones.push(make_pair(question,replay));
+        pair<string, string> newp;
+        newp.first = question;
+        newp.second = replay;
+        SupportRespones.push(newp);
     }
 
+}
+void Admin::FareManagement(double& stage1_fare, double& stage2_fare, double& stage3_fare, double& stage4_fare) {
+
+    int stageNumber;
+    double newPrice;
+
+    cout << "Enter the stage number :" << endl;
+    cin >> stageNumber;
+
+    cout << "Enter the new fare:" << endl;
+    cin >> newPrice;
+
+
+    switch (stageNumber) {
+    case 1:
+        stage1_fare = newPrice;
+        break;
+    case 2:
+        stage2_fare = newPrice;
+        break;
+    case 3:
+        stage3_fare = newPrice;
+        break;
+    case 4:
+        stage4_fare = newPrice;
+        break;
+    default:
+        cout << "Invalid stage number." << endl;
+        return;
+    }
+
+    cout << "Fare updated successfully for stage " << stageNumber << endl;
 }
 
 //void Admin::UserManagement() {
@@ -137,7 +172,7 @@ void Admin::MetroManagement() {
 
         switch (choice) {
         case 1: {
-            string name;
+            string name, connectedTo;
             int line;
             cout << "Enter the name of the metro station: ";
             cin >> name;
@@ -157,7 +192,10 @@ void Admin::MetroManagement() {
                 cout << "Invalid line number." << endl;
                 break;
             }
+            cout << "Enter the name of the metro station it's connected to: ";
+            cin >> connectedTo;
             metro->addStation(name, line1, line2, line3);
+            metro->insertAt(name, connectedTo);
             break;
         }
         case 2: {
@@ -187,7 +225,8 @@ void Admin::MetroManagement() {
         case 3: {
             string name;
             cout << "Enter the name of the metro station to remove: ";
-            cin >> name;
+            cin.ignore();
+            getline(cin, name);
             metro->deleteStation(name);
             break;
         }

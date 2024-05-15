@@ -24,6 +24,7 @@ public:
 	vector<pair<int, double>> monthlyIncome;
 	vector<pair<int, double>> yearlyIncome;
 	Station(string name, bool  Line1, bool Line2, bool Line3);
+	
 	Station();
 	string getName();
 	int getLine();

@@ -46,7 +46,7 @@ public:
 
 	string subscriptionName;
 
-	static vector<NewSubscription*> newSubscription;
+	static vector<NewSubscription> newSubscription;
 	string toString();
 	int numberOfTrips;
 	double balance;
@@ -58,20 +58,20 @@ public:
 
 	int balanceLimit = 400;
 
-	int stage1_fee_student = 33;
-	int stage2_fee_student = 41;
-	int stage3_fee_student = 50;
-	int stage4_fee_student = 65;
+	static int stage1_fee_student ;
+	static int stage2_fee_student ;
+	static int stage3_fee_student ;
+	static int stage4_fee_student ;
 
-	int stage1_fee_public_month = 230;
-	int stage2_fee_public_month = 290;
-	int stage3_fee_public_month = 340;
-	int stage4_fee_public_month = 450;
+	static int stage1_fee_public_month ;
+	static int stage2_fee_public_month ;
+	static int stage3_fee_public_month ;
+	static int stage4_fee_public_month ;
 
-	int stage1_fee_public_year = 1500;
-	int stage2_fee_public_year = 2500;
-	int stage3_fee_public_year = 3500;
-	int stage4_fee_public_year = 4500;
+	static int stage1_fee_public_year ;
+	static int stage2_fee_public_year ;
+	static int stage3_fee_public_year ;
+	static int stage4_fee_public_year ;
 
 	bool studentFlag = true;
 	bool publicMonthFlag = true;
@@ -105,7 +105,6 @@ public:
 	int getStageNumber();
 	void UpdateStagePrice();
 	void RemoveSubscriptionPLan();
-	void ActivateSubscriptionPLan();
 	void ChangeNumberOFTrips();
 	void ChangeDuration();
 	void AddNewSubscription();
