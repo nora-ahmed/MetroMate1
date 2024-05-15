@@ -317,7 +317,10 @@ void Admin::addTrainToLine() {
     cout << "Choose a line for the new train (1, 2, or 3): ";
     cin >> line;
 
-    
+    if (line != 1 && line != 2 && line != 3) {
+        cout << "Invalid line number" << endl;
+        return;
+    }
     vector<Station*> stations = metro->getStationsForLine(line);
     
     if (stations.empty()) {
@@ -337,7 +340,7 @@ void Admin::addTrainToLine() {
     cin >> capacity;
 
     // Create a new train object with the provided info
-    Train* newTrain = new Train(trainID, capacity, stations);
+    Train* newTrain = new Train(trainID, capacity, stations,line);
     trainss.push_back(newTrain);
     cout << "Train with ID " << trainID << " added to Line " << line << "." << endl;
 }
