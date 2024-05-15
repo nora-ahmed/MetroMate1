@@ -25,8 +25,7 @@ void Station::write(ofstream* f)
     
     for (auto it = dailyIncome.begin(); it != dailyIncome.end(); it++) {
       
-            (*f) << it->first << "," << to_string(it->second.first) << "," << to_string(it->second.second);
-            (*f) << "\n";
+        (*f) << it->first << "," << to_string(it->second.first) << "," << to_string(it->second.second) << "\n";
         
     }
     (*f) << "-"<<"\n";

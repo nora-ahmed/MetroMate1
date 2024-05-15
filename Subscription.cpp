@@ -67,7 +67,12 @@ void Subscription::ChooseSubscription() {
 
 			while (true) {
 				cin >> stageNumber;
-				if (stageNumber == 1) {
+				if (cin.fail()) {
+					cout << "Invalid, Please try again." << endl;
+					cin.clear();
+					cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				}
+				else if (stageNumber == 1) {
 					cout << "The Subscription Fee Will Be :"<<stage1_fee_student <<"LE" << endl;
 					cout << "Enter Y to Confirm OR Enter N to Decline : ";
 					cin >> confirm;
@@ -150,7 +155,12 @@ void Subscription::ChooseSubscription() {
 			cout << "----------" << endl;
 			cout << "Enter The subscription plan: ";
 			cin >> number;
-			if (number == 1 && publicMonthFlag) {
+			if (cin.fail()) {
+				cout << "Invalid, Please try again." << endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+			else if (number == 1 && publicMonthFlag) {
 				cout << "Enter the number of stages : ";
 				while (true) {
 					cin >> stageNumber;
@@ -226,6 +236,11 @@ void Subscription::ChooseSubscription() {
 				cout << "Enter the number of stages : ";
 				while (true) {
 					cin >> stageNumber;
+					if (cin.fail()) {
+						cout << "Invalid, Please try again." << endl;
+						cin.clear();
+						cin.ignore(numeric_limits<streamsize>::max(), '\n');
+					}
 					if (stageNumber == 1) {
 						cout << "The Subscription Fee Will Be :"<<stage1_fee_public_year<<" LE" << endl;
 						cout << "Enter Y to Confirm OR Enter N to Decline : ";
@@ -457,6 +472,12 @@ void Subscription::ChangeNumberOFTrips() {
 		cout << "5.EXIT" << endl;
 		cout << "Choose Subscription plan: ";
 		cin >> choice;
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		switch (choice) {
 		case 1:
 			cout << "enter number of trips :";
@@ -653,7 +674,12 @@ void Subscription::Addbalance() {
 	else {
 		cout << "Enter the amount of money you need to your balance (Multiples of ten only!) OR enter zero to exist : ";
 		cin >> amount;
-		if ((amount % 10) != 0)
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		}
+		else if ((amount % 10) != 0)
 			cout << "not multiples of ten" << endl;
 		else if ((balance + amount) > balanceLimit)
 			cout << "the balance has exceeded the limit you can't have more then 400 LE" << endl;
@@ -679,17 +705,29 @@ void Subscription::SubscriptionMenu() {
 		cout << "6.Exist" << endl;
 
 		cin >> choice;
-
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		switch (choice) {
-		case 1:ChooseSubscription();
+		case 1:
+			ChooseSubscription();
 			break;
-		case 2:DisplaySubscriptionDetail();
+		case 2:
+			DisplaySubscriptionDetail();
 			break;
-		case 3: RenewSubscription();
+		case 3: 
+			RenewSubscription();
 			break;
-		case 4:UpgradeSubscription();
+		case 4:
+			UpgradeSubscription();
 			break;
-		case 5:Addbalance();
+		case 5:
+			Addbalance();
+			break;
+		case 6:
 			break;
 		default:
 			cout << "invalid option!!!\n";
@@ -709,7 +747,12 @@ void Subscription::RemoveSubscriptionPLan() {
 		cout << "6.EXIT" << endl;
 		cout << "Choose Subscription plan to remove from the system: ";
 		cin >> choice;
-
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		switch (choice) {
 		case 1:
 			if (studentFlag == false) {
@@ -779,6 +822,12 @@ void Subscription::UpdateStagePrice() {
 		cout << "5.EXIT" << endl;
 		cout << "Choose Subscription plan: ";
 		cin >> choice;
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		switch (choice) {
 		case 1:
 			cout << "enter stage number :";
@@ -914,7 +963,12 @@ void Subscription::ChangeDuration() {
 		cout << "5.EXIT" << endl;
 		cout << "Choose Subscription plan: ";
 		cin >> choice;
-
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		switch (choice) {
 		case 1:
 			cout << "Enter new duration: ";
@@ -1065,10 +1119,14 @@ void Subscription::SubscriptionManagement() {
 		cout << "1.create new plan " << endl;
 		cout << "2.delete subscription plan" << endl;
 		cout << "3.Modify plan" << endl;
-
-		cout << "5.Exit" << endl;
-
+		cout << "4.Exit" << endl;
 		cin >> choice;
+		if (cin.fail()) {
+			cout << "Invalid, Please try again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			break;
+		}
 		if (choice == 1) {
 			AddNewSubscription();
 		}
@@ -1102,7 +1160,7 @@ void Subscription::SubscriptionManagement() {
 		else
 			cout << "invalid input " << endl;
 
-	} while (choice != 5);
+	} while (choice != 4);
 }
 Subscription::Subscription(int trips, double money, string type, string start, string end, int stages)
 {

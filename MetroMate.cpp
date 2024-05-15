@@ -20,9 +20,7 @@ Metro metro;
 list<user*> users;
 user* currentUser;
 Admin admin;
-
 Ride ride;
-
 bool is_valid_email(string email) {
 	if (email.find('@') != string::npos) {
 		//until the end of the string.
@@ -36,11 +34,9 @@ bool is_valid_email(string email) {
 	}
 	return false;
 }
-
 bool is_valid_password(string password) {
 	return password.length() >= 8;
 }
-
 bool is_username_exist(string new_username) {
 	for (user* user : users) {
 		if (user->get_username() == new_username) {
@@ -49,7 +45,6 @@ bool is_username_exist(string new_username) {
 	}
 	return true;
 }
-
 bool is_email_exist(string new_email) {
 	for (user* user : users) {
 		if (user->get_email() == new_email) {
@@ -58,7 +53,6 @@ bool is_email_exist(string new_email) {
 	}
 	return true;
 }
-
 void users_registration() {
 
 	bool is_exist;
@@ -863,12 +857,9 @@ void bookRide() {
 
 
 		}
-
-
 	}
 
 }
-
 void editInfo() {
 	cout << "Your info:\n";
 	cout << "Your Username: " << currentUser->get_username();
@@ -904,7 +895,6 @@ void editInfo() {
 		}
 	}
 }
-
 void mainMenu() {
 	cout << "------------------------- Welcome to MetroMate!! -----------------------------" << endl;
 	while (true) {
@@ -950,64 +940,6 @@ void mainMenu() {
 	}
 
 }
-//void AdminMenu() {
-//
-//	cout << "-------------------- Admin Menu --------------------" << endl;
-//	cout << endl;
-//	int choice;
-//	bool exitMenu = false;
-//
-//	do {
-//
-//		cout << "Enter your choice: ";
-//		cout << endl;
-//		cout << "1. User Management\n";
-//		cout << "2. Metro Management\n";
-//		cout << "3. Subscription Plan Management\n";
-//		cout << "4. View All Ride Logs\n";
-//		cout << "5. Station Management\n";
-//		cout << "6. Fare Management\n";
-//		cout << "7. Train Management\n";
-//		cout << "8. Display Reviews\n";
-//		cout << "9. Exit\n";
-//
-//		cin >> choice;
-//
-//		switch (choice) {
-//		case 1:
-//			admin.UserManagement();
-//			break;
-//		case 2:
-//			admin.MetroManagement();
-//			break;
-//		case 3:
-//			//subscriptionPlanManagement();
-//			break;
-//		case 4:
-//			//ViewAllRideLogs();
-//			break;
-//		case 5:
-//			admin.StationManagement();
-//			break;
-//		case 6:
-//			admin.FareManagement(subscription);
-//			break;
-//
-//		case 7:
-//			//TrainManagement();
-//			break;
-//
-//		case 8:
-//			admin.CustomerServiceMenu(currentUser->questionStack);
-//			break;
-//		case 9:
-//			exitMenu = true;
-//			break;
-//		default:
-//			cout << "Invalid choice ,Please try again.\n";
-//		}
-//	} while (!exitMenu);
-//}
 void userManagement() {
 	int userChoice;
 	string username;
@@ -1146,10 +1078,8 @@ void login() {
 	string username, password_entered;
 	while (true) {
 		cout << "Enter your username please:\n";
-		cout << endl;
 		cin >> username;
 		cout << "Enter your password please:\n";
-		cout << endl;
 		cin >> password_entered;
 		if (username == "farah" && password_entered == "farahfarah") {
 			AdminMenu();
@@ -1168,22 +1098,13 @@ void login() {
 		}
 	}
 }
-
-
-
 int main(){
-	//addGraph();
-
 	// ÕÊÌ·« :
 	//"Nageeb", "Maspero" 
 	//"Massara", "Nasser"
 	//"Ghamra", "Nasser"
-	//readStations();
-
-	//addGraph();
 	admin.metro = &metro;
 	readAllFiles();
-	//readStations();
 	while (true) {
 		cout << "Please choose:\n";
 		cout << "1) Register.\n";
@@ -1211,9 +1132,6 @@ int main(){
 		
 	}
 	writeAllFiles();
-
-
-
 	return 0;
 }
 

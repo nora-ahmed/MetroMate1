@@ -14,7 +14,7 @@ user::user(string new_user_name, string new_user_email, string new_user_password
     email = new_user_email;
     password = new_user_password;
     subscription =   Subscription(trips,money,type,start,end,stages);
-    myReward->points = point;
+    myReward = new RewardProgram(point);
 }
 void user:: writeUsers(user* write,ofstream* f)
 {

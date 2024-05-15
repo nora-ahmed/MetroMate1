@@ -18,17 +18,19 @@ class user {
     string password;
 
 public:
-   // static list<user> users; 
+ 
     list<Ride>user_rides;
     map<string,int>frequent_rides;
     stack<string>questionStack;
-  //  queue<pair<string, string>> supportResponses;
-    RewardProgram myReward;
+    void set_username(string);
+    void set_password(string);
+    void set_email(string);
+    RewardProgram* myReward;
     Subscription subscription;
     void display_ride_history();
     user();
     user(string user_name, string user_email, string user_password);
-    user(string new_user_name, string new_user_email, string new_user_password, int points,int trips, double money, string type, string start, string end, int stages);
+    user(string new_user_name, string new_user_email, string new_user_password, int point,int trips, double money, string type, string start, string end, int stages);
    string suggestRide();
 
    bool is_valid_email(string Email);

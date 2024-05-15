@@ -3,12 +3,9 @@
 using namespace std;
 
 queue<pair<string, string>> SupportRespones;
-
-
 void Admin::StationManagement() {
     int choice;
     string stationName;
-
     cout << "Write The Station Name :" << endl;
     cin.ignore();
         getline(cin, stationName);
@@ -44,18 +41,11 @@ void Admin::StationManagement() {
 }
 void Admin::write(ofstream* f)
 {
-  
-
-
-      
         while (!SupportRespones.empty()) {
             (*f) << SupportRespones.front().first << "," << SupportRespones.front().second;
             SupportRespones.pop();
             (*f) << "\n";
         }
-    
-
-
 }
 void Admin::read(ifstream* f) {
     string line;
@@ -64,9 +54,6 @@ void Admin::read(ifstream* f) {
         string question, replay;
         getline(ss, question, ',');
         getline(ss, replay, ',');
-       
-      
-        cout << question << " " << replay;
         pair<string, string> newp;
         newp.first = question;
         newp.second = replay;
@@ -106,8 +93,6 @@ void Admin::FareManagement(double& stage1_fare, double& stage2_fare, double& sta
 
     cout << "Fare updated successfully for stage " << stageNumber << endl;
 }
-
-
 void Admin::MetroManagement() {
     int choice;
     do {
@@ -187,7 +172,6 @@ void Admin::MetroManagement() {
         }
     } while (true);
 }
-
 void Admin::CustomerServiceMenu(stack<string>Questions) {
 
     int choice;
@@ -240,12 +224,8 @@ void Admin::GetQuestion(stack<string>Questions) {
 
 }
 queue<pair<string, string>> Admin::SendReplies() {
-
     return SupportRespones;
-
 }
-
-
 void Admin::addTrainToLine() {
     int trainID;
     cout << "Enter train ID: ";
@@ -294,11 +274,6 @@ void Admin::addTrainToLine() {
     trainss.push_back(newTrain);
     cout << "Train with ID " << trainID << " added to Line " << line << "." << endl;
 }
-
-
-
-
-
 void Admin::editTrain() {
     int trainID;
     cout << "Enter the ID of the train you want to edit: ";
@@ -431,7 +406,6 @@ void Admin::ETA() {
     }
 
 }
-
 void Admin::TrainManagement(Metro* metro1) {
     metro = metro1;
     int choice;

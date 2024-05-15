@@ -1,8 +1,10 @@
 n,n@gmail.com,12345678,0
-177,0.000000,STUDENT,2,2024-05-15 ,2024-08-13 
+175,0.000000,STUDENT,2,2024-05-15 ,2024-08-13 
 alf maskan,nozha,2024-05-15
 alf maskan,nozha,2024-05-15
 alf maskan,nozha,2024-05-15
+attaba,nozha,2024-05-15
+attaba,nozha,2024-05-15
 &
 djdjdj
 dkmdslkm

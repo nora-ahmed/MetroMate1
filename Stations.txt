@@ -13,9 +13,11 @@ al ahram,false,false,true
 al shohadaa,true,true,false
 -
 alf maskan,false,false,true
-2024-05-15 ,1,0.000000
+2024-05-15,1,0.000000
 -
 attaba,false,true,true
+2024-05-15 ,1,0.000000
+2024-05-15 ,1,0.000000
 -
 bab el shaareya,false,false,true
 -
